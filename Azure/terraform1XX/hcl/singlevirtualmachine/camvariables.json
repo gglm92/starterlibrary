@@ -141,6 +141,56 @@
       "hidden": false,
       "shortname": "",
       "type": "string"
+    },
+    {
+      "name": "azure_vm_hostname",
+      "label": "azure_vm_hostname",
+      "description": "null",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "azure_vm_os",
+      "label": "azure_vm_os",
+      "description": "null",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "azure_vm_os_version",
+      "label": "azure_vm_os_version",
+      "description": "null",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "azure_vm_gateway",
+      "label": "azure_vm_gateway",
+      "description": "null",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "azure_vm_netmask",
+      "label": "azure_vm_netmask",
+      "description": "null",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
     }
   ]
 }
