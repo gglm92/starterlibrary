@@ -222,17 +222,17 @@ output "azure_vm_private_ip" {
 
 # Hostname of the VM
 output "azure_vm_hostname" {
-  value = azurerm_virtual_machine.vm.os_profile[0].computer_name
+  value = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
 }
 
 # Operating System of the VM
 output "azure_vm_os" {
-  value = azurerm_virtual_machine.vm.storage_image_reference[0].offer
+  value = one(azurerm_virtual_machine.vm.storage_image_reference[*].offer)
 }
 
 # Operating System Version of the VM
 output "azure_vm_os_version" {
-  value = azurerm_virtual_machine.vm.storage_image_reference[0].sku
+  value = one(azurerm_virtual_machine.vm.storage_image_reference[*].sku)
 }
 
 # Gateway of the VM's subnet (default gateway)
@@ -242,5 +242,5 @@ output "azure_vm_gateway" {
 
 # Netmask of the VM's subnet
 output "azure_vm_netmask" {
-  value = azurerm_subnet.vm.address_prefixes[0] # In Azure, the netmask is part of the address prefix
+  value = azurerm_subnet.vm.address_prefixes[0] # En Azure, el netmask es parte del address prefix
 }
