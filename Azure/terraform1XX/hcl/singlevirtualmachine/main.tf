@@ -223,6 +223,7 @@ output "azure_vm_private_ip" {
 # Hostname of the VM
 output "azure_vm_hostname" {
   value = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
+  sensitive = true
 }
 
 # Operating System of the VM
