@@ -276,12 +276,14 @@ output "azure_vm_hostname" {
 
 # Operating System of the VM
 output "azure_vm_os" {
-  value = one(azurerm_virtual_machine.vm.storage_image_reference[*].offer)
+  value = "REDHAT"
+  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].offer)
 }
 
 # Operating System Version of the VM
 output "azure_vm_os_version" {
-  value = one(azurerm_virtual_machine.vm.storage_image_reference[*].sku)
+  value = "8.5"
+  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].sku)
 }
 
 # Gateway of the VM's subnet (default gateway)
