@@ -255,6 +255,16 @@ locals {
 
   # Convierte el tamaño de prefijo en la máscara de subred usando el mapa
   subnet_netmask = local.cidr_netmask_map[local.subnet_prefix_length]
+
+  # Obtener la hora actual en UTC
+  current_time_utc = timestamp()
+
+  # Ajustar la hora a -05:00 (5 horas menos)
+  adjusted_time = timeadd(local.current_time_utc, "-5h")
+
+  # Formatear la fecha y la hora por separado y luego concatenar
+  date_part = formatdate("YYYY-MM-DD", local.adjusted_time)
+  time_part = formatdate("HH:mm:ss", local.adjusted_time)
 }
 
 #########################################################
@@ -294,4 +304,8 @@ output "azure_vm_gateway" {
 # Netmask of the VM's subnet
 output "azure_vm_netmask" {
   value = local.subnet_netmask
+}
+
+output "date_with_timezone" {
+  value = "${local.date_part}T${local.time_part}-05:00"
 }
