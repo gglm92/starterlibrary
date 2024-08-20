@@ -96,7 +96,7 @@ resource "azurerm_public_ip" "vm" {
 }
 
 resource "azurerm_network_security_group" "vm" {
-  depends_on		  = [azurerm_network_interface.vm]
+  depends_on          = [azurerm_network_interface.vm]
   name                = "${var.name_prefix}-${random_id.default.hex}-vm-nsg"
   location            = var.azure_region
   resource_group_name = azurerm_resource_group.default.name
@@ -138,11 +138,11 @@ resource "azurerm_network_interface" "vm" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.vm.id
   }
-  tags                = module.camtags.tagsmap
+  tags = module.camtags.tagsmap
 }
 
 resource "azurerm_network_interface_security_group_association" "vm" {
-  depends_on		  = [azurerm_network_interface.vm, azurerm_network_security_group.vm]
+  depends_on                = [azurerm_network_interface.vm, azurerm_network_security_group.vm]
   network_interface_id      = azurerm_network_interface.vm.id
   network_security_group_id = azurerm_network_security_group.vm.id
 }
@@ -170,12 +170,12 @@ resource "azurerm_storage_container" "default" {
 # Deploy the virtual machine resource
 #########################################################
 resource "azurerm_virtual_machine" "vm" {
-  depends_on			      = [azurerm_network_interface_security_group_association.vm]
+  depends_on            = [azurerm_network_interface_security_group_association.vm]
   name                  = "${var.name_prefix}-vm"
   location              = var.azure_region
   resource_group_name   = azurerm_resource_group.default.name
   network_interface_ids = [azurerm_network_interface.vm.id]
-  vm_size = "Standard_D8s_v3"
+  vm_size               = "Standard_D8s_v3"
 
   storage_image_reference {
     publisher = "Canonical"
@@ -206,7 +206,7 @@ resource "azurerm_virtual_machine" "vm" {
     # }
   }
 
-  tags             = module.camtags.tagsmap
+  tags = module.camtags.tagsmap
 }
 
 #########################################################
@@ -280,7 +280,7 @@ output "azure_vm_private_ip" {
 
 # Hostname of the VM
 output "azure_vm_hostname" {
-  value = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
+  value     = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
   sensitive = true
 }
 
@@ -308,4 +308,57 @@ output "azure_vm_netmask" {
 
 output "date_with_timezone" {
   value = "${local.date_part}T${local.time_part}-05:00"
+}
+
+output "resources_vars" {
+  value = [
+    {
+      tipo     = "resource_group"
+      nombre   = "${var.name_prefix}-${random_id.default.hex}-rg"
+      location = var.azure_region
+    },
+    {
+      tipo              = "virtual_network"
+      nombre            = "${var.name_prefix}-${random_id.default.hex}-vnet"
+      espacio_direccion = ["10.0.0.0/16"]
+      location          = var.azure_region
+    },
+    {
+      tipo                  = "subnet"
+      nombre                = "${var.name_prefix}-subnet-${random_id.default.hex}-vm"
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+      nombre_red_virtual    = azurerm_virtual_network.default.name
+      prefijos_direccion    = ["10.0.1.0/24"]
+    },
+    {
+      tipo                  = "public_ip"
+      nombre                = "${var.name_prefix}-${random_id.default.hex}-vm-pip"
+      location              = var.azure_region
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+    },
+    {
+      tipo                  = "network_security_group"
+      nombre                = "${var.name_prefix}-${random_id.default.hex}-vm-nsg"
+      location              = var.azure_region
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+    },
+    {
+      tipo                  = "network_interface"
+      nombre                = "${var.name_prefix}-${random_id.default.hex}-vm-nic1"
+      location              = var.azure_region
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+    },
+    {
+      tipo                  = "storage_account"
+      nombre                = format("st%s", random_id.default.hex)
+      location              = var.azure_region
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+    },
+    {
+      tipo                  = "virtual_machine"
+      nombre                = "${var.name_prefix}-vm"
+      location              = var.azure_region
+      nombre_grupo_recursos = azurerm_resource_group.default.name
+    }
+  ]
 }
