@@ -267,7 +267,7 @@ locals {
   time_part = formatdate("HH:mm:ss", local.adjusted_time)
 
   # Convertir resources_vars a una cadena JSON escapada
-  resources_vars_json = jsonencode([
+  resources_vars_json = replace(jsonencode([
     {
       tipo     = "resource_group"
       nombre   = "${var.name_prefix}-${random_id.default.hex}-rg"
@@ -316,7 +316,7 @@ locals {
       location              = var.azure_region
       nombre_grupo_recursos = azurerm_resource_group.default.name
     }
-  ])
+  ]), "\"", "\\\"")
 }
 
 #########################################################
