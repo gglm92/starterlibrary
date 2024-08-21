@@ -265,53 +265,9 @@ locals {
   # Formatear la fecha y la hora por separado y luego concatenar
   date_part = formatdate("YYYY-MM-DD", local.adjusted_time)
   time_part = formatdate("HH:mm:ss", local.adjusted_time)
-}
 
-#########################################################
-# Output
-#########################################################
-output "azure_vm_public_ip" {
-  value = azurerm_public_ip.vm.ip_address
-}
-
-output "azure_vm_private_ip" {
-  value = azurerm_network_interface.vm.private_ip_address
-}
-
-# Hostname of the VM
-output "azure_vm_hostname" {
-  value     = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
-  sensitive = true
-}
-
-# Operating System of the VM
-output "azure_vm_os" {
-  value = "REDHAT"
-  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].offer)
-}
-
-# Operating System Version of the VM
-output "azure_vm_os_version" {
-  value = "8.5"
-  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].sku)
-}
-
-# Gateway of the VM's subnet (default gateway)
-output "azure_vm_gateway" {
-  value = azurerm_subnet.vm.address_prefixes[0]
-}
-
-# Netmask of the VM's subnet
-output "azure_vm_netmask" {
-  value = local.subnet_netmask
-}
-
-output "date_with_timezone" {
-  value = "${local.date_part}T${local.time_part}-05:00"
-}
-
-output "resources_vars" {
-  value = [
+  # Convertir resources_vars a una cadena JSON escapada
+  resources_vars_json = jsonencode([
     {
       tipo     = "resource_group"
       nombre   = "${var.name_prefix}-${random_id.default.hex}-rg"
@@ -360,5 +316,52 @@ output "resources_vars" {
       location              = var.azure_region
       nombre_grupo_recursos = azurerm_resource_group.default.name
     }
-  ]
+  ])
+}
+
+#########################################################
+# Output
+#########################################################
+output "azure_vm_public_ip" {
+  value = azurerm_public_ip.vm.ip_address
+}
+
+output "azure_vm_private_ip" {
+  value = azurerm_network_interface.vm.private_ip_address
+}
+
+# Hostname of the VM
+output "azure_vm_hostname" {
+  value     = one(azurerm_virtual_machine.vm.os_profile[*].computer_name)
+  sensitive = true
+}
+
+# Operating System of the VM
+output "azure_vm_os" {
+  value = "REDHAT"
+  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].offer)
+}
+
+# Operating System Version of the VM
+output "azure_vm_os_version" {
+  value = "8.5"
+  #value = one(azurerm_virtual_machine.vm.storage_image_reference[*].sku)
+}
+
+# Gateway of the VM's subnet (default gateway)
+output "azure_vm_gateway" {
+  value = azurerm_subnet.vm.address_prefixes[0]
+}
+
+# Netmask of the VM's subnet
+output "azure_vm_netmask" {
+  value = local.subnet_netmask
+}
+
+output "date_with_timezone" {
+  value = "${local.date_part}T${local.time_part}-05:00"
+}
+
+output "resources_vars" {
+  value = local.resources_vars_json
 }
