@@ -200,6 +200,7 @@ resource "azurerm_virtual_machine" "vm" {
     computer_name  = "${var.name_prefix}-vm"
     admin_username = var.admin_user
     admin_password = var.admin_user_password
+    custom_data    = base64encode("#cloud-config\nruncmd:\n  - echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config\n  - echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config\n  - systemctl restart sshd")
   }
 
   os_profile_linux_config {
