@@ -178,9 +178,9 @@ resource "azurerm_virtual_machine" "vm" {
   vm_size               = "Standard_D8s_v3"
 
   storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    publisher = "RedHat"
+    offer     = "RHEL"
+    sku       = "8-lvm-gen2"
     version   = "latest"
   }
 
@@ -200,10 +200,10 @@ resource "azurerm_virtual_machine" "vm" {
   os_profile_linux_config {
     disable_password_authentication = false
 
-    # ssh_keys {
-    #   path     = "/home/${var.admin_user}/.ssh/authorized_keys"
-    #   key_data = var.user_public_key
-    # }
+    ssh_keys {
+      path     = "/home/${var.admin_user}/.ssh/authorized_keys"
+      key_data = var.user_public_key
+    }
   }
 
   tags = module.camtags.tagsmap
