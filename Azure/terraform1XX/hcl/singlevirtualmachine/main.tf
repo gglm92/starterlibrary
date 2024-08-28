@@ -49,7 +49,7 @@ variable "name_prefix" {
 
 variable "admin_user" {
   description = "Name of an administrative user to be created in virtual machine in this deployment"
-  default     = "ibmadmin"
+  default     = "root"
 }
 
 variable "admin_user_password" {
