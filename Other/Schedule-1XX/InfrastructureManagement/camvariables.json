@@ -63,6 +63,15 @@
 		"required": true,
 		"secured": false,
 		"type": "string"
+	},{
+		"name": "schedule_time",
+		"label": "Schedule Time",
+		"description": "Schedule Time to deploy (YYYY-mm-dd HH:MM)",
+		"hidden": false,
+		"immutable": false,
+		"required": true,
+		"secured": false,
+		"type": "string"
 	}],
 	"template_output_params": [{
 		"name": "approval_status",
