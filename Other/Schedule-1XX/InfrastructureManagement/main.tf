@@ -44,6 +44,10 @@ variable "wait_time" {
     description = "Wait time in seconds i.e. time after which poll should again happen to retrieve the approval status"
 }
 
+variable "schedule_time" {
+    default = ""
+    description = "Schedule Time to deploy (YYYY-mm-dd HH:MM)"
+}
 #########################################################
 # Create file to store script output
 #########################################################
@@ -57,7 +61,7 @@ resource "local_file" "approval_status" {
 #########################################################
 resource "null_resource" "poll_endpoint" {
  provisioner "local-exec" {
-    command = "/bin/bash poll_endpoint.sh $URL $USERNAME $PASSWORD $TOKEN $CURL_OPTIONS $WAIT_TIME $FILE"
+    command = "/bin/bash poll_endpoint.sh $URL $USERNAME $PASSWORD $TOKEN $CURL_OPTIONS $WAIT_TIME $FILE $SCHEDULE_TIME"
     environment = {
       URL          = var.url
       USERNAME     = var.username != "" ? var.username : "DEFAULT_USERNAME"
@@ -66,6 +70,7 @@ resource "null_resource" "poll_endpoint" {
       CURL_OPTIONS = var.curl_option
       WAIT_TIME    = var.wait_time
       FILE         = local_file.approval_status.filename
+      SCHEDULE_TIME=var.schedule_time
     }
   }
   depends_on = [
