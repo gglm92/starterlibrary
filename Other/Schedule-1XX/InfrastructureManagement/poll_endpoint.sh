@@ -22,6 +22,7 @@ SetParams() {
    OPTIONS=$5
    WAIT_TIME=$6
    FILE=$7
+   SCHEDULE_DATE=$8
 
    AUTH=""
    USERNAME=$2
@@ -47,12 +48,13 @@ SetParams() {
 
 PollInfrastructureManagement() {
    # Set params
-   SetParams $1 $2 $3 $4 $5 $6 $7
+   SetParams $1 $2 $3 $4 $5 $6 $7 $8
 
    printf "Approval Status: %s\napproved"
    result="approved"
 
-   schedule_date=$(date -d "+2 minutes" +"%Y-%m-%d %H:%M")
+   #schedule_date=$(date -d "+2 minutes" +"%Y-%m-%d %H:%M")
+   schedule_date="$8"
    schedule_ts=$(date -d "$schedule_date" +%s)
 
    printf "Schedule Date: %s\n" "$schedule_date"
