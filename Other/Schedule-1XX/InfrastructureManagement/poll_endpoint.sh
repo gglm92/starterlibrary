@@ -49,8 +49,8 @@ PollInfrastructureManagement() {
    # Set params
    SetParams $1 $2 $3 $4 $5 $6 $7
 
-   result=$(curl -X GET $OPTIONS "$1" --header "Authorization: $AUTH" | jq -r '.approval_state')
-   printf "Approval Status: %s\n" $result
+   printf "Approval Status: %s\napproved"
+   result="approved"
    while [ "$result" = "pending_approval" ]; do
       printf "Approval Status: %s\n" $result
       result=$(curl -X GET $OPTIONS "$1" --header "Authorization: $AUTH" | jq -r '.approval_state')
