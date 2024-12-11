@@ -51,12 +51,14 @@ PollInfrastructureManagement() {
 
    printf "Approval Status: %s\napproved"
    result="approved"
+   date=$(date)
    while [ "$result" = "pending_approval" ]; do
       printf "Approval Status: %s\n" $result
       result=$(curl -X GET $OPTIONS "$1" --header "Authorization: $AUTH" | jq -r '.approval_state')
       sleep $WAIT_TIME
    done
 
+   printf "Fecha: " $date
    printf "Approval Status: %s\n" $result
    printf $result >$FILE
 }
