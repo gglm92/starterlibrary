@@ -44,13 +44,15 @@ SetParams() {
    printf "Options: %s\n" $OPTIONS
    printf "Wait Time: %s\n" $WAIT_TIME
    printf "File Path: %s\n" $FILE
+   printf "Schedule Time: %s\n" $SCHEDULE_TIME
 }
 
 PollInfrastructureManagement() {
    # Set params
    SetParams $1 $2 $3 $4 $5 $6 $7 $8
 
-   printf "Approval Status: %s\napproved"
+   printf "Start PollInfrastructureManagement"
+   printf "Approval Status: %s\napproved\n"
    result="approved"
 
    #schedule_date=$(date -d "+2 minutes" +"%Y-%m-%d %H:%M")
