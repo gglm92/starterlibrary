@@ -55,7 +55,7 @@ PollInfrastructureManagement() {
    printf "Schedule Date: %s\n" $schedule_date
 
    date=$(date +"%d/%m/%Y %H:%M")
-   while [ $(date +%s) -lt $schedule_ts ]; do
+   while [[ $(date +%s) -lt $schedule_ts ]]; do
       printf "While Date: %s\n" $date
       date=$(date +"%d/%m/%Y %H:%M")
       sleep $WAIT_TIME
