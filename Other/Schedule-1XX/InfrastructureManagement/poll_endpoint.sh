@@ -58,7 +58,7 @@ PollInfrastructureManagement() {
       sleep $WAIT_TIME
    done
 
-   printf "Fecha: " $date
+   printf "Fecha: %s\n" $date
    printf "Approval Status: %s\n" $result
    printf $result >$FILE
 }
