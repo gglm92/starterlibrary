@@ -51,14 +51,15 @@ PollInfrastructureManagement() {
 
    printf "Approval Status: %s\napproved"
    result="approved"
+
    schedule_date=$(date -d "+2 minutes" +"%d/%m/%Y %H:%M")
    schedule_ts=$(date -d "$schedule_date" +%s)
-   printf "Schedule Date: %s\n" $schedule_date
 
-   date=$(date +"%d/%m/%Y %H:%M")
-   while [[ $(date +%s) -lt $schedule_ts ]]; do
-      printf "While Date: %s\n" $date
-      date=$(date +"%d/%m/%Y %H:%M")
+   printf "Schedule Date: %s\n" "$schedule_date"
+   printf "Schedule Timestamp: %s\n" "$schedule_ts"
+   while [ "$(date +%s)" -lt "$schedule_ts" ]; do
+      current_date=$(date +"%d/%m/%Y %H:%M")
+      printf "While Date: %s\n" $current_date
       sleep $WAIT_TIME
    done
 
