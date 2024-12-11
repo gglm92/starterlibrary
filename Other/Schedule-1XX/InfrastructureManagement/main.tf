@@ -61,7 +61,7 @@ resource "local_file" "approval_status" {
 #########################################################
 resource "null_resource" "poll_endpoint" {
  provisioner "local-exec" {
-    command = "/bin/bash poll_endpoint.sh $URL $USERNAME $PASSWORD $TOKEN $CURL_OPTIONS $WAIT_TIME $FILE $SCHEDULE_TIME"
+    command = "/bin/bash poll_endpoint.sh $URL $USERNAME $PASSWORD $TOKEN $CURL_OPTIONS $WAIT_TIME $FILE \"$SCHEDULE_TIME\""
     environment = {
       URL          = var.url
       USERNAME     = var.username != "" ? var.username : "DEFAULT_USERNAME"
