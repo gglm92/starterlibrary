@@ -19,6 +19,7 @@
 
 SetParams() {
    SCHEDULE_DATE=$1
+   FILE=$2
 
    # Log params
    printf "Schedule Time: %s\n" $SCHEDULE_TIME
@@ -26,7 +27,7 @@ SetParams() {
 
 PollInfrastructureManagement() {
    # Set params
-   SetParams "$1"
+   SetParams "$1" $2
 
    printf "Start PollInfrastructureManagement"
    printf "Approval Status: %s\napproved\n"
@@ -47,8 +48,10 @@ PollInfrastructureManagement() {
       sleep $diff
    done
 
+   status="Finished"
+
    printf "Final Date: %s\n" $date
-   printf $date >$FILE
+   printf $status >$FILE
 }
 
-PollInfrastructureManagement "$1"
+PollInfrastructureManagement "$1" $2
