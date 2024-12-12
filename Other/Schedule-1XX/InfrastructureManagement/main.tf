@@ -35,9 +35,10 @@ resource "local_file" "status" {
 #########################################################
 resource "null_resource" "poll_endpoint" {
   provisioner "local-exec" {
-    command = "/bin/bash poll_endpoint.sh \"$SCHEDULE_TIME\""
+    command = "/bin/bash poll_endpoint.sh \"$SCHEDULE_TIME\" $FILE"
     environment = {
       SCHEDULE_TIME = var.schedule_time
+      FILE          = local_file.approval_status.filename
     }
   }
   depends_on = [
