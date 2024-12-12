@@ -48,7 +48,7 @@ PollInfrastructureManagement() {
    done
 
    printf "Final Date: %s\n" $date
-   printf $result >$FILE
+   printf $date >$FILE
 }
 
 PollInfrastructureManagement "$1"
