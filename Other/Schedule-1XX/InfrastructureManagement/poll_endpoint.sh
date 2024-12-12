@@ -55,9 +55,9 @@ PollInfrastructureManagement() {
    printf "Approval Status: %s\napproved\n"
    result="approved"
 
-   #schedule_date=$(date -d "+2 minutes" +"%Y-%m-%d %H:%M")
    schedule_date="$8"
-   schedule_ts=$(date -d "$schedule_date" +%s)
+   #schedule_ts=$(date -d "$schedule_date" +%s)
+   schedule_ts=$(date -d "$schedule_date CST" +%s)
 
    printf "Schedule Date : %s\n" "$schedule_date"
    printf "Schedule Timestamp: %s\n" "$schedule_ts"
