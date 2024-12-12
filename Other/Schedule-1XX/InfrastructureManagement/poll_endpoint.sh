@@ -49,7 +49,7 @@ SetParams() {
 
 PollInfrastructureManagement() {
    # Set params
-   SetParams $1 $2 $3 $4 $5 $6 $7 $8
+   SetParams $1 $2 $3 $4 $5 $6 $7 "$8"
 
    printf "Start PollInfrastructureManagement"
    printf "Approval Status: %s\napproved\n"
@@ -75,4 +75,4 @@ PollInfrastructureManagement() {
    printf $result >$FILE
 }
 
-PollInfrastructureManagement $1 $2 $3 $4 $5 $6 $7 $8
+PollInfrastructureManagement $1 $2 $3 $4 $5 $6 $7 "$8"
