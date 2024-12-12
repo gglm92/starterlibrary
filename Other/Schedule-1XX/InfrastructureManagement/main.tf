@@ -1,5 +1,5 @@
 #################################################################
-# Terraform template that will poll Infrastructure Management for approval
+# Terraform template that will wait time before provisioning resources
 #
 # Version: 2.4
 #
@@ -9,9 +9,9 @@
 #
 #    http://www.apache.org/licenses/LICENSE-2.0
 #
-# Licensed Materials - Property of IBM
+# Licensed Materials - Property of GBM
 #
-# ©Copyright IBM Corp. 2020.
+# ©Copyright GBM Corp. 2020.
 #
 #################################################################
 
@@ -31,7 +31,7 @@ resource "local_file" "status" {
 }
 
 #########################################################
-# Poll Infrastructure Management for approval status
+# Wait Time
 #########################################################
 resource "null_resource" "poll_endpoint" {
   provisioner "local-exec" {

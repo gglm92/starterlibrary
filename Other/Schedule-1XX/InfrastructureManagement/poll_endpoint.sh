@@ -1,7 +1,7 @@
 #################################################################
-# Script to poll Infrastructure Management for approval status
+# Script to Wait Time before provisioning resources
 #
-# Version: 2.4
+# Version: 1.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -9,9 +9,9 @@
 #
 #    http://www.apache.org/licenses/LICENSE-2.0
 #
-# Licensed Materials - Property of IBM
+# Licensed Materials - Property of GBM
 #
-# ©Copyright IBM Corp. 2020.
+# ©Copyright GBM Corp. 2024.
 #
 #################################################################
 
@@ -25,13 +25,11 @@ SetParams() {
    printf "Schedule Time: %s\n" $SCHEDULE_TIME
 }
 
-PollInfrastructureManagement() {
+WaitTime() {
    # Set params
    SetParams "$1" $2
 
-   printf "Start PollInfrastructureManagement"
-   printf "Approval Status: %s\napproved\n"
-   result="approved"
+   printf "Start WaitTime"
 
    #schedule_ts=$(date -d "$schedule_date" +%s)
    schedule_ts=$(date -d "$SCHEDULE_DATE CST" +%s)
@@ -54,4 +52,4 @@ PollInfrastructureManagement() {
    printf $status >$FILE
 }
 
-PollInfrastructureManagement "$1" $2
+WaitTime "$1" $2
