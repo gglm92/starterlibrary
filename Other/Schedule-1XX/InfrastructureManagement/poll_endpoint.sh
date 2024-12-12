@@ -29,21 +29,7 @@ SetParams() {
    PASSWORD=$3
    TOKEN=$4
 
-   if [ "$TOKEN" == "DEFAULT_TOKEN" ]; then
-      AUTH="Basic "
-      AUTH+=$(printf $USERNAME:$PASSWORD | base64)
-      echo "Token is empty, So using Username/Password for authentication."
-   else
-      AUTH="Bearer "
-      AUTH+=$TOKEN
-      echo "Token is not empty, So using Bearer token for authentication."
-   fi
-
    # Log params
-   printf "URL: %s\n" $URL
-   printf "Options: %s\n" $OPTIONS
-   printf "Wait Time: %s\n" $WAIT_TIME
-   printf "File Path: %s\n" $FILE
    printf "Schedule Time: %s\n" $SCHEDULE_TIME
 }
 
@@ -64,14 +50,14 @@ PollInfrastructureManagement() {
 
    current_date=$(date +%s)
    printf "Current Date: %s\n" "$current_date"
+
+   diff=$((schedule_ts - current_date))
    while [ "$(date +%s)" -lt "$schedule_ts" ]; do
-      printf "While Date: %s\n" $date
       date=$(date +"%d/%m/%Y %H:%M")
-      sleep $WAIT_TIME
+      sleep $diff
    done
 
    printf "Final Date: %s\n" $date
-   printf "Approval Status: %s\n" $result
    printf $result >$FILE
 }
 
