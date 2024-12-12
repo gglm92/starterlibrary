@@ -1,6 +1,6 @@
 {
-    "name": "Poll Infrastructure Management for Approval for Terraform 1.x.x",
-    "description": "Polls Infrastructure Management for Approval before provisioning resources",
+    "name": "Wait until the scheduled time",
+    "description": "Wait until the scheduled time before provisioning resources",
     "version": "2.5",
     "imageUrl": "./assets/svg/IBM_WebSphere_Standalone.svg",
     "image": "tp_WAS_standalone.png",
@@ -23,9 +23,9 @@
       }
     },
     "metadata": {
-      "displayName": "Poll Infrastructure Management for Approval",
+      "displayName": "Wait until the scheduled time",
       "providerDisplayName": "Other",
-      "longDescription": "Use this template to poll Infrastructure Management for approval before provisioning resources",
+      "longDescription": "Use this template to wait until the scheduled time before provisioning resources",
       "bullets": [
      ],
       "featuredImageUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/ic_patternengine_50.png",

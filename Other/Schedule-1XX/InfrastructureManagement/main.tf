@@ -18,77 +18,51 @@
 #########################################################
 # Define the variables
 #########################################################
-variable "url" {
-    description = "URL to retrieve approval status"
-}
-
-variable "username" {
-    description = "Username to connect to Infrastructure Management"
-}
-
-variable "password" {
-    description = "Password to connect to Infrastructure Management"
-}
-
-variable "token" {
-    description = "Bearer token to connect to Infrastructure Management"
-}
-
-variable "curl_option" {
-    default = ""
-    description = "Options for curl command used to retrieve status from Infrastructure Management e.g. --insecure"
-}
-
-variable "wait_time" {
-    default = 5
-    description = "Wait time in seconds i.e. time after which poll should again happen to retrieve the approval status"
-}
-
 variable "schedule_time" {
-    default = ""
-    description = "Schedule Time to deploy (YYYY-mm-dd HH:MM)"
+  default     = ""
+  description = "Schedule Time to deploy (YYYY-mm-dd HH:MM)"
 }
 #########################################################
 # Create file to store script output
 #########################################################
-resource "local_file" "approval_status" {
-    content   = ""
-    filename  = "${path.module}/approval_status"
+resource "local_file" "status" {
+  content  = ""
+  filename = "${path.module}/status"
 }
 
 #########################################################
 # Poll Infrastructure Management for approval status
 #########################################################
 resource "null_resource" "poll_endpoint" {
- provisioner "local-exec" {
+  provisioner "local-exec" {
     command = "/bin/bash poll_endpoint.sh \"$SCHEDULE_TIME\""
     environment = {
-      SCHEDULE_TIME=var.schedule_time
+      SCHEDULE_TIME = var.schedule_time
     }
   }
   depends_on = [
-    local_file.approval_status
-  ] 
+    local_file.status
+  ]
 }
 
 #########################################################
 # Data
 #########################################################
-data "local_file" "approval_status" {
-    filename = local_file.approval_status.filename
+data "local_file" "status" {
+  filename = local_file.status.filename
 
-    depends_on = [
+  depends_on = [
     null_resource.poll_endpoint,
-  ] 
+  ]
 }
 
 #########################################################
 # Output
 #########################################################
-output "approval_status" {
-  value = data.local_file.approval_status.content
+output "status" {
+  value = data.local_file.status.content
 
   depends_on = [
     null_resource.poll_endpoint,
-  ] 
+  ]
 }
