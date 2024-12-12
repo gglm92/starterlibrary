@@ -18,16 +18,7 @@
 #!/bin/sh
 
 SetParams() {
-   URL=$1
-   OPTIONS=$5
-   WAIT_TIME=$6
-   FILE=$7
-   SCHEDULE_DATE=$8
-
-   AUTH=""
-   USERNAME=$2
-   PASSWORD=$3
-   TOKEN=$4
+   SCHEDULE_DATE=$1
 
    # Log params
    printf "Schedule Time: %s\n" $SCHEDULE_TIME
@@ -35,17 +26,16 @@ SetParams() {
 
 PollInfrastructureManagement() {
    # Set params
-   SetParams $1 $2 $3 $4 $5 $6 $7 "$8"
+   SetParams "$1"
 
    printf "Start PollInfrastructureManagement"
    printf "Approval Status: %s\napproved\n"
    result="approved"
 
-   schedule_date="$8"
    #schedule_ts=$(date -d "$schedule_date" +%s)
-   schedule_ts=$(date -d "$schedule_date CST" +%s)
+   schedule_ts=$(date -d "$SCHEDULE_DATE CST" +%s)
 
-   printf "Schedule Date : %s\n" "$schedule_date"
+   printf "Schedule Date : %s\n" "$SCHEDULE_DATE"
    printf "Schedule Timestamp: %s\n" "$schedule_ts"
 
    current_date=$(date +%s)
@@ -61,4 +51,4 @@ PollInfrastructureManagement() {
    printf $result >$FILE
 }
 
-PollInfrastructureManagement $1 $2 $3 $4 $5 $6 $7 "$8"
+PollInfrastructureManagement "$1"
