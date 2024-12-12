@@ -59,7 +59,7 @@ PollInfrastructureManagement() {
    schedule_date="$8"
    schedule_ts=$(date -d "$schedule_date" +%s)
 
-   printf "Schedule Date: %s\n" "$schedule_date"
+   printf "Schedule Date : %s\n" "$schedule_date"
    printf "Schedule Timestamp: %s\n" "$schedule_ts"
 
    current_date=$(date +%s)
