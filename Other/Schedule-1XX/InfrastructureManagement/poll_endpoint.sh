@@ -41,10 +41,10 @@ WaitTime() {
    printf "Current Date: %s\n" "$current_date"
 
    diff=$((schedule_ts - current_date))
-   while [ "$(date +%s)" -lt "$schedule_ts" ]; do
-      date=$(date +"%d/%m/%Y %H:%M")
-      sleep $diff
-   done
+   
+   if [ "$diff" -gt 0 ]; then
+      sleep "$diff"
+   fi
 
    status="Finished"
 
